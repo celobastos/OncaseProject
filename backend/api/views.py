@@ -13,3 +13,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class ParticipationViewSet(viewsets.ModelViewSet):
     queryset = Participation.objects.select_related('participant', 'project').all()
     serializer_class = ParticipationSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()

@@ -14,8 +14,21 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ParticipationSerializer(serializers.ModelSerializer):
     participant = serializers.PrimaryKeyRelatedField(queryset=Participant.objects.all())
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    percentage = serializers.FloatField(required=False, allow_null=True)  # Participation is optional
 
     class Meta:
         model = Participation
         fields = '__all__'
 
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class ParticipationSerializer(serializers.ModelSerializer):
+    participant = serializers.PrimaryKeyRelatedField(queryset=Participant.objects.all())
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+
+    class Meta:
+        model = Participation
+        fields = '__all__'

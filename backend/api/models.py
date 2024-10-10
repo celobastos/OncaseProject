@@ -16,6 +16,20 @@ class Project(models.Model):
 class Participation(models.Model):
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    percentage = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.participant} - {self.project} ({self.percentage}%)"
+
+class Project(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Participation(models.Model):
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     percentage = models.FloatField()
 
     def __str__(self):
