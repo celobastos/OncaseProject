@@ -77,27 +77,24 @@ const ProjectsList = () => {
                 ))}
             </ul>
             <div className="pagination">
-                {currentPage > 1 && (
-                    <button 
-                        className="page-button" 
-                        onClick={prevPage}
-                        aria-label="Previous Page"
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </button>
-                )}
+                <button
+                    className="page-button"
+                    onClick={prevPage}
+                    aria-label="Previous Page"
+                    disabled={currentPage === 1}
+                >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
                 <span className="current-page">{currentPage}</span>
-                {currentPage < Math.ceil(projects.length / projectsPerPage) && (
-                    <button 
-                        className="page-button" 
-                        onClick={nextPage}
-                        aria-label="Next Page"
-                    >
-                        <FontAwesomeIcon icon={faChevronRight} />
-                    </button>
-                )}
+                <button
+                    className="page-button"
+                    onClick={nextPage}
+                    aria-label="Next Page"
+                    disabled={currentPage === Math.ceil(projects.length / projectsPerPage)}
+                >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                </button>
             </div>
-
             {projectData && (
                 <ProjectPopup 
                     project={projectData} 
