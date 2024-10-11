@@ -14,26 +14,28 @@
 .popup-content {
     position: relative;
     background: #fff;
-    padding: 20px 30px;
-    width: 70vw;
-    height: 80vh;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    padding: 2vh 3vw;
+    width: 90%;
+    max-width: 70vw;
+    max-height: 90vh;
+    border-radius: 0.8vh;
+    box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.3);
+    overflow-y: auto;
 }
 
 .close-button {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 1.5vh;
+    right: 2vw;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 3vh;
     cursor: pointer;
 }
 
 .modalTitle h2 {
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
     text-align: center;
     font-size: 3vh;
     font-weight: bold;
@@ -46,43 +48,39 @@
 
 .topRow {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    width: 90%;
-    margin-left: 3vw;
+    flex-direction: column;
+    margin-bottom: 2vh;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .topRow {
+        flex-direction: row;
+        margin-left: 0;
+    }
 }
 
 .graphDiv, .projectMembers {
     flex: 1;
-    margin: 0 10px;
+    margin: 1vh 1vw;
 }
 
-.graphDiv {
+.graphDiv, .projectMembers, .bottomDiv {
     background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 1.5vh 2vw;
+    border-radius: 0.5vh;
 }
 
-.projectMembers {
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 5px;
+@media (min-width: 768px) {
+    .graphDiv, .projectMembers {
+        margin: 0 1vw;
+    }
 }
-
-.bottomDiv {
-    margin: 0 10px;
-    background-color: #fefefe;
-    padding: 15px;
-    border-radius: 5px;
-}
-
 
 @media (max-width: 768px) {
-    .topRow {
-        flex-direction: column;
-    }
-
     .graphDiv, .projectMembers {
-        margin: 10px 0;
+        width: 100%;
+        margin: 2vh;
+        margin-bottom: 2vh;
     }
 }

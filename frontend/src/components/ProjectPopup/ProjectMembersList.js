@@ -122,7 +122,7 @@ const ProjectMembersList = ({
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <span>
-            Pagina {currentPage} de {totalPages}
+         {currentPage}
           </span>
           <button
             onClick={handleNextPage}

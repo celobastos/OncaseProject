@@ -1,48 +1,61 @@
+.projectMembers {
+  background-color: #ffffff;
+  box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+  padding: 2vh 2vw;
+  height: 45vh;
+  border-radius: 0.5vh;
+}
+
 .projectMembers ul {
   list-style-type: none;
   padding: 0;
-}
-.projectMembers{
-  background-color: #ffffff;
-  box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+  margin: 0;
 }
 
 .projectMembers h3 {
-  margin-bottom: 2vh; 
-  text-align: center; 
+  margin-bottom: 2vh;
+  text-align: center;
+  font-size: 2.5vh;
 }
 
 .projectMembers li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1vh; 
-  padding: 0.5vh; 
-  border-bottom: 0.1vh solid #ccc; 
+  margin-bottom: 1vh;
+  padding: 0.5vh;
+  border-bottom: 0.1vh solid #ccc;
   cursor: pointer;
-  height: 2.7vh; 
+}
+
+.projectMembers li:last-child {
+  border-bottom: none;
 }
 
 .projectMembers li:hover {
   background-color: #f1f1f1;
 }
 
-.projectMembers li .memberInfo {
+.projectMembers .memberInfo {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
-.projectMembers li .memberInfo input[type='number'] {
-  width: 5vw; 
-  margin-left: 0.3vw;
+.projectMembers .memberInfo input[type='number'] {
+  width: 5vw;
+  margin-left: 0.5vw;
+  padding: 0.5vh;
+  font-size: 1.8vh;
 }
 
 .projectMembers .deleteButton {
   background-color: transparent;
   color: #e53935;
   border: none;
-  font-size: 2vh; 
+  font-size: 2.5vh;
   cursor: pointer;
-  margin-left: 0.5vw;
+  margin-left: 1vw;
   outline: none;
 }
 
@@ -59,15 +72,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1.5vh; 
+  margin-top: 2vh;
 }
 
 .pagination button {
-  margin: 0 0.5vw; 
+  margin: 0 1vw;
   background-color: transparent;
   border: none;
   color: #03a9f4;
-  font-size: 2.5vh; 
+  font-size: 3vh;
   cursor: pointer;
 }
 
@@ -81,6 +94,6 @@
 }
 
 .pagination span {
-  margin: 0 0.7vw; 
-  font-size: 2vh; 
+  margin: 0 1vw;
+  font-size: 2.5vh;
 }
