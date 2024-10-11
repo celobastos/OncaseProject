@@ -20,6 +20,7 @@ const CreateProjectForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
+            <h2>Crie um projeto</h2>
             <input type="text" placeholder="Project name" value={projectName} onChange={e => setProjectName(e.target.value)} required />
             <button type="submit">Create Project</button>
         </form>

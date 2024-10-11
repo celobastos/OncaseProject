@@ -5,7 +5,7 @@ import './ProjectsList.css';
 const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const projectsPerPage = 5;
+    const projectsPerPage = 3;
 
     useEffect(() => {
         const fetchProjects = async () => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import api from '../../services/api';
-import './Form.css';
 
 const UserForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -25,7 +24,7 @@ const UserForm = () => {
         <form onSubmit={handleSubmit} className="form-container">
             <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required />
             <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required />
-            <button type="submit">Create User</button>
+            <button type="submit">Criar Membro</button>
         </form>
     );
 };

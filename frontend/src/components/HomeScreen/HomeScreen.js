@@ -12,8 +12,8 @@ const HomeScreen = () => {
             <NavBar />
             <div className="first-section">
                 <ProjectsList />
-                <CreateUserForm />
                 <CreateProjectForm />
+                <CreateUserForm />
             </div>
             <RecentProjects />
         </div>

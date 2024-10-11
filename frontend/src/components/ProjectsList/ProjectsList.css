@@ -12,7 +12,8 @@
     border-radius: 1vh;
     box-shadow: 0 0.4vh 0.6vh rgba(0, 0, 0, 0.1);
     position: relative;
-    min-height: 43vh;
+    min-height: 20vh;
+    height: 30vh;
 }
 
 .projects-list h2 {
