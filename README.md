@@ -1,6 +1,6 @@
 # Gerenciamento de Participações de Projetos
 
-## Visão Geral
+## Introdução
 Este é um projeto para gerenciar a participação de membros em projetos. A aplicação permite criar novos projetos, adicionar membros a esses projetos e visualizar as participações através de um gráfico de pizza. Foi desenvolvida uma aplicação web composta por um **frontend** em React e um **backend** em Django REST framework, com **MySQL** para persistência dos dados.
 
 ## Tecnologias Utilizadas
@@ -38,7 +38,6 @@ O projeto segue uma arquitetura client-server, onde o frontend e o backend são 
 2. Crie e ative um ambiente virtual:
    ```bash
    python -m venv env
-   source env/bin/activate  # Linux/Mac
    .\env\Scripts\activate  # Windows
    ```
 3. Instale as dependências:
@@ -72,10 +71,7 @@ O projeto segue uma arquitetura client-server, onde o frontend e o backend são 
 
 ## Melhorias Futuras
 - **Autenticação**: Implementar um sistema de autenticação para restringir o acesso aos recursos.
-- **Notificações**: Adicionar um sistema de notificações para informar aos usuários sobre a criação de novos projetos e membros adicionados.
+- **AWS**: Realizar o deployment com o Amazon webServices
+  .
 
-## Contato
-Para qualquer dúvida ou sugestão, entre em contato com o desenvolvedor pelo email: [seu-email@exemplo.com](mailto:seu-email@exemplo.com).
-
-Agradecemos por testar nosso projeto! Fique à vontade para sugerir melhorias ou relatar problemas.
 
