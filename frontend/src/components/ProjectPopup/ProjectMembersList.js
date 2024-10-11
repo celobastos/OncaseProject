@@ -23,7 +23,7 @@ const ProjectMembersList = ({
 
   const handleSaveEdit = (participation) => {
     if (newPercentage === '' || isNaN(newPercentage)) {
-      alert('Please enter a valid percentage');
+      alert('Digite uma porcentagem valida');
       return;
     }
     onUpdateParticipation(participation.id, parseFloat(newPercentage));
