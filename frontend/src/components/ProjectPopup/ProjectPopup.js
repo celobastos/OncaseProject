@@ -6,12 +6,14 @@ import ProjectMembersList from './ProjectMembersList';
 import AddMemberForm from './AddMemberForm';
 import useParticipants from '../../hooks/useParticipants';
 import PropTypes from 'prop-types';
+import { ProjectPropType } from '../../propTypes/propTypes';
 
 const ProjectPopup = ({ project, onClose }) => {
   const [participations, setParticipations] = useState([]);
   const [participantId, setParticipantId] = useState('');
   const [percentage, setPercentage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
   const participantsList = useParticipants();
 
@@ -107,21 +109,9 @@ const ProjectPopup = ({ project, onClose }) => {
 };
 
 ProjectPopup.propTypes = {
-  project: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    participations: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        participant: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          full_name: PropTypes.string.isRequired,
-        }).isRequired,
-        percentage: PropTypes.number,
-      })
-    ),
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+    project: ProjectPropType.isRequired,
+    onClose: PropTypes.func.isRequired,
+  };
+  
 
 export default ProjectPopup;
