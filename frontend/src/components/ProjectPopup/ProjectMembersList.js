@@ -55,7 +55,7 @@ const ProjectMembersList = ({
 
   return (
     <div className="projectMembers">
-      <h3>Project Members</h3>
+      <h3>Particiantes do Projeto</h3>
       <ul>
         {paginatedParticipations.map((participation) => (
           <li key={participation.id}>
