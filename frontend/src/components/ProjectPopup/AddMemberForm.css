@@ -16,6 +16,20 @@
   margin-bottom: 2vh;
   font-size: 3vh;
 }
+.success-notification {
+  background-color: #d4edda;
+  color: #06D6A0;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000; 
+}
+
 
 .bottomDiv form {
   display: flex;

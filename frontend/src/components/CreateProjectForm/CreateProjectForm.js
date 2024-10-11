@@ -4,6 +4,7 @@ import './CreateProjectForm.css';
 
 const CreateProjectForm = () => {
     const [projectName, setProjectName] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -11,19 +12,23 @@ const CreateProjectForm = () => {
             await api.post('/projects/', {
                 name: projectName,
             });
-            alert('Project created successfully');
+            setSuccessMessage('Projeto criado com sucesso');
             setProjectName('');
+            setTimeout(() => setSuccessMessage(''), 2500); 
         } catch (error) {
             alert('Failed to create project');
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <h2>Crie um projeto</h2>
-            <input type="text" placeholder="Nome do projeto" value={projectName} onChange={e => setProjectName(e.target.value)} required />
-            <button type="submit">Adicionar</button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit} className="form-container">
+                <h2>Crie um projeto</h2>
+                <input type="text" placeholder="Nome do projeto" value={projectName} onChange={e => setProjectName(e.target.value)} required />
+                <button type="submit">Adicionar</button>
+            </form>
+            {successMessage && <div className="success-notification">{successMessage}</div>}
+         </>
     );
 };
 
