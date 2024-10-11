@@ -2,33 +2,46 @@ from rest_framework import serializers
 from .models import Participant, Project, Participation
 
 class ParticipantSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Participant
-        fields = '__all__'
+        fields = ['id', 'first_name', 'last_name', 'full_name']
 
-class ProjectSerializer(serializers.ModelSerializer):
+    def get_full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
+
+class ProjectSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['id', 'name']
 
 class ParticipationSerializer(serializers.ModelSerializer):
-    participant = serializers.PrimaryKeyRelatedField(queryset=Participant.objects.all())
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
-    percentage = serializers.FloatField(required=False, allow_null=True)  # Participation is optional
+    participant = ParticipantSerializer(read_only=True)
+    participant_id = serializers.PrimaryKeyRelatedField(
+        queryset=Participant.objects.all(),
+        source='participant',
+        write_only=True
+    )
+    project = ProjectSimpleSerializer(read_only=True)
+    project_id = serializers.PrimaryKeyRelatedField(
+        queryset=Project.objects.all(),
+        source='project',
+        write_only=True
+    )
+    percentage = serializers.FloatField(required=False, allow_null=True)
 
     class Meta:
         model = Participation
-        fields = '__all__'
+        fields = ['id', 'participant', 'participant_id', 'project', 'project_id', 'percentage']
 
 class ProjectSerializer(serializers.ModelSerializer):
+    participations = serializers.SerializerMethodField()
+
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['id', 'name', 'participations']
 
-class ParticipationSerializer(serializers.ModelSerializer):
-    participant = serializers.PrimaryKeyRelatedField(queryset=Participant.objects.all())
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
-
-    class Meta:
-        model = Participation
-        fields = '__all__'
+    def get_participations(self, obj):
+        participations = Participation.objects.filter(project=obj)
+        return ParticipationSerializer(participations, many=True).data

@@ -1,113 +1,153 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProjectPopup.css';
-import api from '../../services/api';
+import api from '../../services/api'; 
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-import { useEffect, useState } from 'react';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#C0392B'];
 
 const ProjectPopup = ({ project, onClose }) => {
-    const [members, setMembers] = useState([]);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [participation, setParticipation] = useState('');
+    const [participations, setParticipations] = useState([]);
+    const [participantsList, setParticipantsList] = useState([]);
+    const [participantId, setParticipantId] = useState('');
+    const [percentage, setPercentage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const fetchMembers = async () => {
+        if (project) {
+            setParticipations(project.participations || []);
+        }
+    }, [project]);
+
+    useEffect(() => {
+        const fetchParticipants = async () => {
             try {
-                const response = await api.get(`/participations/?project=${project.id}`);
-                setMembers(response.data);
+                const response = await api.get('/participants/');
+                setParticipantsList(response.data);
             } catch (error) {
-                alert('Failed to fetch project members');
+                console.error('Failed to fetch participants:', error);
             }
         };
-        fetchMembers();
-    }, [project.id]);
+        fetchParticipants();
+    }, []);
+
+    const participationData = participations.map((participation, index) => ({
+        name: participation.participant.full_name,
+        value: participation.percentage || 0,
+        color: COLORS[index % COLORS.length],
+    }));
 
     const handleAddMember = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
-        const newMember = {
-            project: project.id,
-            first_name: firstName,
-            last_name: lastName,
-            participation: participation,
-        };
+        const totalPercentage = participations.reduce(
+            (sum, p) => sum + (p.percentage || 0),
+            0
+        );
+        if (totalPercentage + parseFloat(percentage) > 100) {
+            alert('Total participation percentage cannot exceed 100%');
+            setIsSubmitting(false);
+            return;
+        }
 
         try {
-            await api.post('/participations/', newMember);
-            setFirstName('');
-            setLastName('');
-            setParticipation('');
+            const newParticipation = {
+                participant_id: parseInt(participantId),
+                project_id: project.id,
+                percentage: parseFloat(percentage),
+            };
 
-            const response = await api.get(`/participations/?project=${project.id}`);
-            setMembers(response.data);
+            console.log('Adding participation:', newParticipation);
+
+            await api.post('/participations/', newParticipation);
+
+            const updatedProjectResponse = await api.get(`/projects/${project.id}/`);
+            setParticipations(updatedProjectResponse.data.participations || []);
+
+            setParticipantId('');
+            setPercentage('');
         } catch (error) {
+            console.error('Failed to add participation:', error.response?.data || error);
             alert('Failed to add member');
         }
-    };
-
-    const chartData = {
-        labels: members.map((member) => `${member.first_name} ${member.last_name}`),
-        datasets: [
-            {
-                data: members.map((member) => member.participation),
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F40',
-                ],
-            },
-        ],
+        setIsSubmitting(false);
     };
 
     return (
-        <div className="popup">
-            <div className="popup-content">
-                <h3>{project.name}</h3>
-                <p>Project ID: {project.id}</p>
-                <div className="members-list">
-                    <h4>Members Assigned to the Project</h4>
-                    <ul>
-                        {members.map((member) => (
-                            <li key={member.id}>
-                                {`${member.first_name} ${member.last_name}`} - {member.participation}%
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <form onSubmit={handleAddMember} className="add-member-form">
-                    <input
-                        type="text"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="text"
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="number"
-                        placeholder="Participation (%)"
-                        value={participation}
-                        onChange={(e) => setParticipation(e.target.value)}
-                        required
-                    />
-                    <button type="submit">Add Member</button>
-                </form>
-                <div className="chart-container">
-                    <h4>Participation Chart</h4>
-                    <Pie data={chartData} key={project.id} />
+        <div
+            className="popup-overlay"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle"
+        >
+            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                <button className="close-button" onClick={onClose}>×</button>
+                <h2 className="modalTitle" id="modalTitle">{project.name}</h2>
+                <div className="modalWrapper">
+                    <div className="topRow">
+                        <div className="graphDiv">
+                            <h3>Participation Graph</h3>
+                            <PieChart width={300} height={300}>
+                                <Pie
+                                    data={participationData}
+                                    dataKey="value"
+                                    nameKey="name"
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={100}
+                                    label
+                                >
+                                    {participationData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                            </PieChart>
+                        </div>
+                        <div className="projectMembers">
+                            <h3>Project Members</h3>
+                            <ul>
+                                {participations.map((participation) => (
+                                    <li key={participation.id}>
+                                        {participation.participant.full_name} - {participation.percentage}%
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="bottomDiv">
+                        <h3>Add a Member</h3>
+                        <form onSubmit={handleAddMember}>
+                            <label>
+                                Participant:
+                                <select
+                                    value={participantId}
+                                    onChange={(e) => setParticipantId(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Select Participant</option>
+                                    {participantsList.map((participant) => (
+                                        <option key={participant.id} value={participant.id}>
+                                            {participant.first_name} {participant.last_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                            <label>
+                                Percentage:
+                                <input
+                                    type="number"
+                                    value={percentage}
+                                    onChange={(e) => setPercentage(e.target.value)}
+                                    min="0"
+                                    max="100"
+                                    required
+                                />
+                            </label>
+                            <button type="submit" disabled={isSubmitting}>Add Member</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

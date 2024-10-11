@@ -8,6 +8,7 @@ const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [projectData, setProjectData] = useState(null);
     const projectsPerPage = 3;
 
     useEffect(() => {
@@ -38,12 +39,30 @@ const ProjectsList = () => {
         }
     };
 
-    const handleProjectClick = (project) => {
-        setSelectedProject(project);
+    const handleProjectClick = async (project) => {
+        try {
+            const response = await api.get(`/projects/${project.id}/`);
+            setProjectData(response.data); 
+            setSelectedProject(project);
+        } catch (error) {
+            alert('Failed to fetch project details');
+        }
     };
 
     const closePopup = () => {
         setSelectedProject(null);
+        setProjectData(null); 
+    };
+
+    const refreshProjectData = async () => {
+        if (selectedProject) {
+            try {
+                const response = await api.get(`/projects/${selectedProject.id}/`);
+                setProjectData(response.data);
+            } catch (error) {
+                alert('Failed to refresh project data');
+            }
+        }
     };
 
     return (
@@ -76,8 +95,12 @@ const ProjectsList = () => {
                 )}
             </div>
 
-            {selectedProject && (
-                <ProjectPopup project={selectedProject} onClose={closePopup} />
+            {projectData && (
+                <ProjectPopup 
+                    project={projectData} 
+                    onClose={closePopup} 
+                    onMemberAdded={refreshProjectData} 
+                />
             )}
         </div>
     );
