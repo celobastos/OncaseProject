@@ -2,14 +2,9 @@
   background-color: #ffffff;
   box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
   padding: 2vh 2vw;
-  height: 45vh;
   border-radius: 0.5vh;
-}
+  height: 45vh;
 
-.projectMembers ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
 }
 
 .projectMembers h3 {
@@ -18,54 +13,136 @@
   font-size: 2.5vh;
 }
 
-.projectMembers li {
-  display: flex;
+.members-grid {
+  display: grid;
+  grid-template-columns: 1fr 80px 120px; 
+  grid-auto-rows: minmax(4vh, auto);
+  gap: 1vh;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1vh;
-  padding: 0.5vh;
-  border-bottom: 0.1vh solid #ccc;
+}
+
+.grid-header {
+  display: contents;
+}
+
+.grid-header .header-item {
+  font-weight: bold;
+  text-align: left;
+  padding: 1vh 0.5vw;
+  border-bottom: 0.2vh solid #ccc;
+}
+
+.grid-row {
+  display: contents;
+}
+
+.member-name {
+  padding: 1vh 0.5vw;
   cursor: pointer;
+  border-bottom: 0.1vh solid #e0e0e0;
+  word-wrap: break-word;
 }
 
-.projectMembers li:last-child {
-  border-bottom: none;
+.member-percentage {
+  padding: 1vh 0.5vw;
+  cursor: pointer;
+  border-bottom: 0.1vh solid #e0e0e0;
+  text-align: center;
 }
 
-.projectMembers li:hover {
+.member-name:hover,
+.member-percentage:hover {
   background-color: #f1f1f1;
 }
 
-.projectMembers .memberInfo {
-  flex-grow: 1;
+.member-actions {
   display: flex;
   align-items: center;
+  justify-content: center; 
+  padding: 1vh 0.5vw;
+  border-bottom: 0.1vh solid #e0e0e0;
+  width: 100%;
+  height: 40px; 
+  box-sizing: border-box;
 }
 
-.projectMembers .memberInfo input[type='number'] {
-  width: 5vw;
-  margin-left: 0.5vw;
-  padding: 0.5vh;
-  font-size: 1.8vh;
-}
-
-.projectMembers .deleteButton {
+.deleteButton {
   background-color: transparent;
   color: #e53935;
   border: none;
   font-size: 2.5vh;
   cursor: pointer;
-  margin-left: 1vw;
-  outline: none;
+  width: 40px; 
+  height: 40px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.projectMembers .deleteButton:hover {
+.deleteButton:hover {
   color: #b71c1c;
 }
 
-.projectMembers .deleteButton:disabled {
+.deleteButton:disabled {
   color: #ccc;
   cursor: not-allowed;
+}
+
+
+.member-percentage input[type="number"] {
+  width: 60px; 
+  padding: 0.5vh 0.5vw;
+  font-size: 2vh;
+  border: 0.1vh solid #ccc;
+  border-radius: 0.5vh;
+  outline: none;
+  -moz-appearance: textfield; 
+}
+
+.member-percentage input[type="number"]::-webkit-outer-spin-button,
+.member-percentage input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.member-percentage input[type="number"]:focus {
+  border-color: #6200ea;
+  box-shadow: 0 0 0.5vh rgba(98, 0, 234, 0.5);
+}
+
+.action-button {
+  background-color: #6200ea;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5vh;
+  padding: 0.5vh 1vw;
+  margin: 0 0.5vh; 
+  cursor: pointer;
+  font-size: 1.8vh; 
+  transition: background-color 0.3s;
+  width: 50px;
+  height: 30px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button:hover {
+  background-color: #3700b3;
+}
+
+.action-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #e0e0e0;
+  color: #000000;
+}
+
+.cancel-button:hover {
+  background-color: #aeaeae;
 }
 
 .pagination {
@@ -94,6 +171,73 @@
 }
 
 .pagination span {
-  margin: 0 1vw;
   font-size: 2.5vh;
+}
+
+
+@media (max-width: 768px) {
+  .members-grid {
+    grid-template-columns: 1fr 80px; 
+  }
+
+  .projectMembers {
+    padding: 2vh 1vw;
+  }
+
+  .projectMembers h3 {
+    font-size: 2vh;
+  }
+
+  .pagination button {
+    font-size: 2.5vh;
+  }
+
+  .pagination span {
+    font-size: 2vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .members-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-actions {
+    justify-content: flex-end;
+  }
+
+  .projectMembers {
+    padding: 2vh 1vw;
+  }
+
+  .projectMembers h3 {
+    font-size: 2vh;
+  }
+
+  .member-name,
+  .member-percentage,
+  .member-actions {
+    padding: 1vh 0.5vw;
+    font-size: 2vh;
+  }
+
+  .deleteButton {
+    font-size: 2vh;
+    width: 30px;
+    height: 30px;
+  }
+
+  .action-button {
+    width: 40px;
+    height: 25px;
+    font-size: 1.5vh;
+  }
+
+  .pagination button {
+    font-size: 2vh;
+  }
+
+  .pagination span {
+    font-size: 1.8vh;
+  }
 }

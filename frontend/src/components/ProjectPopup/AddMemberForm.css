@@ -1,11 +1,11 @@
 .bottomDiv {
-  padding: 2vh 2vw;
+  
   border-radius: 1vh;
   
-  margin-bottom: 3vh;
+  margin-bottom: 2vh;
   width: 100%;
   max-width: 60%;
-  height: 40%;
+  height: 39%;
   align-self: center;
   box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
   background-color: #ffffff;

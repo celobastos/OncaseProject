@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ParticipationPropType } from '../../propTypes/propTypes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './ProjectMembersList.css';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 5;
 
 const ProjectMembersList = ({
   participations,
@@ -55,15 +53,25 @@ const ProjectMembersList = ({
 
   return (
     <div className="projectMembers">
-      <h3>Particiantes do Projeto</h3>
-      <ul>
+      <h3>Membros do Projeto</h3>
+      <div className="members-grid">
+        <div className="grid-header">
+          <div className="header-item">Nome</div>
+          <div className="header-item">%</div>
+          <div className="header-item">Ações</div>
+        </div>
         {paginatedParticipations.map((participation) => (
-          <li key={participation.id}>
+          <div className="grid-row" key={participation.id}>
             <div
-              className="memberInfo"
+              className="member-name"
               onClick={() => handleItemClick(participation)}
             >
-              {participation.participant.full_name} • {' '}
+              {participation.participant.full_name}
+            </div>
+            <div
+              className="member-percentage"
+              onClick={() => handleItemClick(participation)}
+            >
               {editingParticipationId === participation.id ? (
                 <>
                   <input
@@ -75,60 +83,63 @@ const ProjectMembersList = ({
                     required
                     onClick={(e) => e.stopPropagation()}
                   />
-                  %
+                </>
+              ) : (
+                `${participation.percentage}%`
+              )}
+            </div>
+            <div className="member-actions">
+              {editingParticipationId === participation.id ? (
+                <>
                   <button
+                    className="action-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSaveEdit(participation);
                     }}
                     disabled={isSubmitting}
                   >
-                    Salvar
+                    Save
                   </button>
                   <button
+                    className="action-button cancel-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleCancelEdit();
                     }}
                   >
-                    Cancelar
+                    Cancel
                   </button>
                 </>
               ) : (
-                <>
-                  {participation.percentage}%
-                </>
+                <button
+                  className="deleteButton"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteParticipation(participation.id);
+                  }}
+                  disabled={isSubmitting}
+                >
+                  ×
+                </button>
               )}
             </div>
-            <button
-              className="deleteButton"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteParticipation(participation.id);
-              }}
-              disabled={isSubmitting}
-            >
-              ×
-            </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       {totalPages > 1 && (
         <div className="pagination">
-          <button
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
+          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            ‹
           </button>
           <span>
-         {currentPage}
+             {currentPage}
           </span>
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
-            <FontAwesomeIcon icon={faArrowRight} />
+            ›
           </button>
         </div>
       )}
