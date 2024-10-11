@@ -1,0 +1,119 @@
+/* ProjectPopup.css */
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh; 
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    border-radius: 1.5vh;
+    padding: 2vh;
+    width: 60vw;
+    max-width: 80vw;
+    min-height: 50%;
+    height: 50vh;
+    margin-bottom: 20vh;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+}
+
+.popup-content h3 {
+    font-size: 2.5vh; 
+    color: #333;
+    margin-bottom: 1vh;
+}
+
+.popup-content p {
+    font-size: 2vh;
+    color: #666;
+    margin-bottom: 2vh; /* Reduced margin */
+}
+
+.members-list {
+    text-align: left;
+    margin-bottom: 2vh; /* Reduced margin */
+}
+
+.members-list h4 {
+    font-size: 2.5vh;
+    color: #333;
+    margin-bottom: 1vh; /* Reduced margin */
+}
+
+.members-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.members-list li {
+    font-size: 2vh;
+    color: #444;
+    padding: 0.5vh 0;
+}
+
+.add-member-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh; /* Reduced margin */
+    flex-wrap: wrap;
+}
+
+.add-member-form input {
+    margin: 1vh 0.5vw;
+    padding: 1vh; /* Reduced padding */
+    font-size: 2vh;
+    border: 0.2vh solid #ccc;
+    border-radius: 1vh;
+    width: calc(33% - 1vw);
+    box-sizing: border-box;
+}
+
+.add-member-form button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 1vh 3vw; /* Reduced padding */
+    border-radius: 1vh;
+    font-size: 2vh;
+    cursor: pointer;
+    margin: 1vh 0.5vw;
+}
+
+.add-member-form button:hover {
+    background-color: #45a049;
+}
+
+.chart-container {
+    margin-top: 2vh; /* Reduced margin */
+}
+
+.chart-container h4 {
+    font-size: 2.5vh;
+    color: #333;
+    margin-bottom: 1.5vh;
+}
+
+/* Close button */
+.popup-content::after {
+    content: '✖';
+    font-size: 3vh;
+    position: absolute;
+    top: 1vh;
+    right: 2vw;
+    cursor: pointer;
+    color: #999;
+}
+
+.popup-content::after:hover {
+    color: #333;
+}
