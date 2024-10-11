@@ -99,7 +99,7 @@ const ProjectMembersList = ({
                     }}
                     disabled={isSubmitting}
                   >
-                    Save
+                    Salvar
                   </button>
                   <button
                     className="action-button cancel-button"
@@ -108,7 +108,7 @@ const ProjectMembersList = ({
                       handleCancelEdit();
                     }}
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </>
               ) : (

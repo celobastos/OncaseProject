@@ -111,14 +111,14 @@
 }
 
 .action-button {
-  background-color: #6200ea;
+  background-color: #118AB2;
   color: #ffffff;
   border: none;
   border-radius: 0.5vh;
   padding: 0.5vh 1vw;
   margin: 0 0.5vh; 
   cursor: pointer;
-  font-size: 1.8vh; 
+  font-size: 1.6vh; 
   transition: background-color 0.3s;
   width: 50px;
   height: 30px; 
@@ -128,7 +128,7 @@
 }
 
 .action-button:hover {
-  background-color: #3700b3;
+  background-color: #073B4C;
 }
 
 .action-button:disabled {
