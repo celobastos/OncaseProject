@@ -1,0 +1,44 @@
+.recent-projects {
+    padding: 20px;
+}
+
+.projects-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.project-chart {
+    flex: 1 1 calc(33.33% - 20px); 
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    transition: box-shadow 0.3s;
+}
+
+.project-chart:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project-chart h4 {
+    margin-bottom: 10px;
+}
+
+.project-chart svg {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .project-chart {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .project-chart {
+        flex: 1 1 100%; 
+    }
+}

@@ -5,7 +5,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#C0392B'
 
 const ParticipationGraph = ({ participationData }) => (
   <div className="graphDiv">
-    <h3>Participation Graph</h3>
+    <h3>Gráfico de Participação</h3>
     <PieChart width={300} height={300}>
       <Pie
         data={participationData}

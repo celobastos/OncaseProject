@@ -1,55 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { Pie } from 'react-chartjs-2';
 import api from '../../services/api';
 import './RecentProjects.css';
+import ProjectPopup from '../ProjectPopup/ProjectPopup';
+import ParticipationGraph from '../ProjectPopup/ParticipationGraph';
 
 const RecentProjects = () => {
     const [projects, setProjects] = useState([]);
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await api.get('/participations/');
-                setProjects(response.data);
+                const response = await api.get('/projects/');
+                setProjects(response.data.slice(0, 2));
             } catch (error) {
-                alert('Failed to fetch participation data');
+                alert('Failed to fetch project data');
+            } finally {
+                setLoading(false);
             }
         };
         fetchProjects();
     }, []);
 
+    const handleProjectClick = (project) => {
+        setSelectedProject(project);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedProject(null);
+    };
+
     return (
         <div className="recent-projects">
             <h3>Projetos Recentes</h3>
-            {projects && projects.length > 0 ? (
-                projects.map((project, index) => (
-                    <div key={index} className="project-chart">
-                        <h4>{project.project_name}</h4>
-                        {project.participants && project.participants.length > 0 ? (
-                            <Pie
-                                data={{
-                                    labels: project.participants.map((p) => p.name),
-                                    datasets: [
-                                        {
-                                            data: project.participants.map((p) => p.percentage),
-                                            backgroundColor: [
-                                                '#FF6384',
-                                                '#36A2EB',
-                                                '#FFCE56',
-                                                '#4BC0C0',
-                                                '#9966FF',
-                                            ],
-                                        },
-                                    ],
-                                }}
-                            />
-                        ) : (
-                            <p>No participants available for this project.</p>
-                        )}
-                    </div>
-                ))
+            {loading ? (
+                <p>Carregando Projetos...</p>
             ) : (
-                <p>No projects available.</p>
+                <div className="projects-row">
+                    {projects && projects.length > 0 ? (
+                        projects.map((project) => {
+                            const participationData = project.participations.map((participation, index) => ({
+                                name: participation.participant.full_name,
+                                value: participation.percentage || 0,
+                                color: participation.color, 
+                            }));
+
+                            return (
+                                <div
+                                    key={project.id}
+                                    className="project-chart"
+                                    onClick={() => handleProjectClick(project)}
+                                    tabIndex="0"
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter') handleProjectClick(project);
+                                    }}
+                                    aria-label={`View details for ${project.name}`}
+                                >
+                                    <h4>{project.name}</h4>
+                                    {participationData && participationData.length > 0 ? (
+                                        <ParticipationGraph
+                                            participationData={participationData}
+                                            width={200}
+                                            height={200}
+                                            outerRadius={80}
+                                            showTitle={false} 
+                                        />
+                                    ) : (
+                                        <p>Sem Participantes para esse projeto.</p>
+                                    )}
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p>Sem projetos.</p>
+                    )}
+                </div>
+            )}
+            {selectedProject && (
+                <ProjectPopup project={selectedProject} onClose={handleClosePopup} />
             )}
         </div>
     );
