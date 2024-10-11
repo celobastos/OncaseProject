@@ -12,15 +12,19 @@ const ProjectsList = () => {
     const [projectData, setProjectData] = useState(null);
     const projectsPerPage = 3;
 
+    const fetchProjects = async () => {
+        try {
+            const response = await api.get('/projects/');
+            const sortedProjects = response.data.sort(
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            );
+            setProjects(sortedProjects);
+        } catch (error) {
+            alert('Failed to fetch projects');
+        }
+    };
+
     useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const response = await api.get('/projects/');
-                setProjects(response.data);
-            } catch (error) {
-                alert('Failed to fetch projects');
-            }
-        };
         fetchProjects();
     }, []);
 
@@ -28,8 +32,10 @@ const ProjectsList = () => {
     const indexOfFirstProject = indexOfLastProject - projectsPerPage;
     const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
 
+    const totalPages = Math.ceil(projects.length / projectsPerPage);
+
     const nextPage = () => {
-        if (currentPage < Math.ceil(projects.length / projectsPerPage)) {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -43,7 +49,7 @@ const ProjectsList = () => {
     const handleProjectClick = async (project) => {
         try {
             const response = await api.get(`/projects/${project.id}/`);
-            setProjectData(response.data); 
+            setProjectData(response.data);
             setSelectedProject(project);
         } catch (error) {
             alert('Failed to fetch project details');
@@ -52,7 +58,8 @@ const ProjectsList = () => {
 
     const closePopup = () => {
         setSelectedProject(null);
-        setProjectData(null); 
+        setProjectData(null);
+        fetchProjects();
     };
 
     const refreshProjectData = async () => {
@@ -90,16 +97,17 @@ const ProjectsList = () => {
                     className="page-button"
                     onClick={nextPage}
                     aria-label="Next Page"
-                    disabled={currentPage === Math.ceil(projects.length / projectsPerPage)}
+                    disabled={currentPage === totalPages}
                 >
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
             </div>
+
             {projectData && (
-                <ProjectPopup 
-                    project={projectData} 
-                    onClose={closePopup} 
-                    onMemberAdded={refreshProjectData} 
+                <ProjectPopup
+                    project={projectData}
+                    onClose={closePopup}
+                    onMemberAdded={refreshProjectData}
                 />
             )}
         </div>
