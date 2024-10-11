@@ -13,7 +13,7 @@ const RecentProjects = () => {
         const fetchProjects = async () => {
             try {
                 const response = await api.get('/projects/');
-                setProjects(response.data.slice(0, 2));
+                setProjects(response.data.slice(0, 3));
             } catch (error) {
                 alert('Failed to fetch project data');
             } finally {

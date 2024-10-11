@@ -2,15 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F1F1F1;
     padding-right: 1vw;
-    border-radius: 5px;
+    border-radius: 0.5vh;
     margin-right: 1vw;
-    width: 30vw;
+    width: 28vw;
   }
   
   .graph-container h3 {
-    margin-bottom: 20px;
+    margin-bottom: 2.5vh;
   }
   
   .chart-and-legend {
@@ -21,23 +20,23 @@
   .legend {
     display: flex;
     flex-direction: column;
-    margin-left: 20px; 
+    margin-left: 2vw;
   }
   
   .legend-item {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.6vh;
   }
   
   .legend-color {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
+    width: 1vw;
+    height: 1vw;
+    margin-right: 1vw;
+    border: 0.1vh solid #ccc;
   }
   
   .legend-text {
-    font-size: 14px;
+    font-size: 1.75vh;
   }
   
