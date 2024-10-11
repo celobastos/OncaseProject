@@ -1,8 +1,8 @@
-// ProjectMembersList.js
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ParticipationPropType } from '../../propTypes/propTypes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './ProjectMembersList.css';
 
 const ITEMS_PER_PAGE = 8;
@@ -63,7 +63,7 @@ const ProjectMembersList = ({
               className="memberInfo"
               onClick={() => handleItemClick(participation)}
             >
-              {participation.participant.full_name} -{' '}
+              {participation.participant.full_name} • {' '}
               {editingParticipationId === participation.id ? (
                 <>
                   <input
@@ -83,7 +83,7 @@ const ProjectMembersList = ({
                     }}
                     disabled={isSubmitting}
                   >
-                    Save
+                    Salvar
                   </button>
                   <button
                     onClick={(e) => {
@@ -91,7 +91,7 @@ const ProjectMembersList = ({
                       handleCancelEdit();
                     }}
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </>
               ) : (
@@ -119,16 +119,16 @@ const ProjectMembersList = ({
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
           >
-            Previous
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <span>
-            Page {currentPage} of {totalPages}
+            Pagina {currentPage} de {totalPages}
           </span>
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
-            Next
+            <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
       )}

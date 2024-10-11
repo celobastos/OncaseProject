@@ -22,14 +22,15 @@ const ProjectPopup = ({ project, onClose }) => {
     }
   }, [project]);
 
-  const fetchParticipations = async () => {
+  const fetchParticipations = useCallback(async () => {
     try {
       const updatedProjectResponse = await api.get(`/projects/${project.id}/`);
       setParticipations(updatedProjectResponse.data.participations || []);
     } catch (error) {
       console.error('Failed to fetch participations:', error.response?.data || error);
     }
-  };
+  }, [project.id]);
+  
 
   const participationData = participations.map((participation, index) => ({
     name: participation.participant.full_name,
@@ -64,10 +65,10 @@ const ProjectPopup = ({ project, onClose }) => {
 
         await api.post('/participations/', newParticipation);
 
-        // Fetch updated participations
+       
         await fetchParticipations();
 
-        // Clear the form inputs
+        
         setParticipantId('');
         setPercentage('');
       } catch (error) {
@@ -77,7 +78,7 @@ const ProjectPopup = ({ project, onClose }) => {
         setIsSubmitting(false);
       }
     },
-    [participantId, percentage, participations, project.id]
+    [participantId, percentage, participations, project.id, fetchParticipations]
   );
 
   const handleUpdateParticipation = async (participationId, updatedPercentage) => {
