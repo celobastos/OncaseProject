@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import './Form.css';
 
-const Form = () => {
+const UserForm = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [participation, setParticipation] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,11 +12,12 @@ const Form = () => {
             await api.post('/participants/', {
                 first_name: firstName,
                 last_name: lastName,
-                participation: parseFloat(participation),
             });
-            
+            alert('User added successfully');
+            setFirstName('');
+            setLastName('');
         } catch (error) {
-            alert('Failed to add participant');
+            alert('Failed to add user');
         }
     };
 
@@ -25,10 +25,9 @@ const Form = () => {
         <form onSubmit={handleSubmit} className="form-container">
             <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required />
             <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required />
-            <input type="text" placeholder="Participation" value={participation} onChange={e => setParticipation(e.target.value)} required />
-            <button type="submit">Send</button>
+            <button type="submit">Create User</button>
         </form>
     );
 };
 
-export default Form;
+export default UserForm;

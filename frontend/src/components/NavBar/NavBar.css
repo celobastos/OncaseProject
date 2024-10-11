@@ -1,0 +1,37 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #000814;
+    color: #fff;
+    padding: 2vh 3vw;
+    box-shadow: 0 0.4vh 0.6vh rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 80vw;
+    
+    flex-wrap: wrap;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: start;
+}
+
+.logo {
+    width: 10vw;
+    height: auto;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
