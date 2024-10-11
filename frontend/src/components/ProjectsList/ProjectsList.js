@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import './ProjectsList.css';
-
 import ProjectPopup from '../ProjectPopup/ProjectPopup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
@@ -67,7 +68,7 @@ const ProjectsList = () => {
 
     return (
         <div className="projects-list">
-            <h2>Projects</h2>
+            <h2>Projetos</h2>
             <ul>
                 {currentProjects.map((project) => (
                     <li key={project.id} onClick={() => handleProjectClick(project)}>
@@ -80,8 +81,9 @@ const ProjectsList = () => {
                     <button 
                         className="page-button" 
                         onClick={prevPage}
+                        aria-label="Previous Page"
                     >
-                        <span>&#9664;</span>
+                        <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                 )}
                 <span className="current-page">{currentPage}</span>
@@ -89,8 +91,9 @@ const ProjectsList = () => {
                     <button 
                         className="page-button" 
                         onClick={nextPage}
+                        aria-label="Next Page"
                     >
-                        <span>&#9654;</span>
+                        <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                 )}
             </div>

@@ -1,5 +1,7 @@
 .recent-projects {
     padding: 2vh;
+    font-size: 3vh;
+    text-align: center;
 }
 
 .projects-row {
@@ -23,6 +25,7 @@
 .project-chart h4 {
     margin-bottom: 1vh;
 }
+
 
 .project-chart svg {
     max-width: 100%;

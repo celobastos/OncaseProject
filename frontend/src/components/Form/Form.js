@@ -23,8 +23,8 @@ const UserForm = () => {
     return (
         <form onSubmit={handleSubmit} className="form-container">
             <h2>Adicione um membro</h2>
-            <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required />
-            <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required />
+            <input type="text" placeholder="Nome" value={firstName} onChange={e => setFirstName(e.target.value)} required />
+            <input type="text" placeholder="Sobrenome" value={lastName} onChange={e => setLastName(e.target.value)} required />
             <button type="submit">Adicionar</button>
         </form>
     );

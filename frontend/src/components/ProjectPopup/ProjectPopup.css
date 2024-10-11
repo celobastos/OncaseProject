@@ -31,11 +31,11 @@
     cursor: pointer;
 }
 
-.modalTitle {
+.modalTitle h2 {
     margin-top: 0;
     margin-bottom: 20px;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 3vh;
     font-weight: bold;
 }
 

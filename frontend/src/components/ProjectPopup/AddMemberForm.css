@@ -12,7 +12,7 @@
   .bottomDiv h3 {
     text-align: center;
     margin-bottom: 2vh;
-    font-size: 2.5vh;
+    font-size: 3vh;
   }
   
   .bottomDiv form {
@@ -25,9 +25,9 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 2vh;
-    width: 80%;
   }
-  
+
+
   .bottomDiv label select,
   .bottomDiv label input {
     padding: 1vh 1vw;
