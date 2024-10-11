@@ -13,7 +13,6 @@ const ProjectPopup = ({ project, onClose }) => {
   const [participantId, setParticipantId] = useState('');
   const [percentage, setPercentage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
 
   const participantsList = useParticipants();
 
@@ -23,10 +22,19 @@ const ProjectPopup = ({ project, onClose }) => {
     }
   }, [project]);
 
+  const fetchParticipations = async () => {
+    try {
+      const updatedProjectResponse = await api.get(`/projects/${project.id}/`);
+      setParticipations(updatedProjectResponse.data.participations || []);
+    } catch (error) {
+      console.error('Failed to fetch participations:', error.response?.data || error);
+    }
+  };
+
   const participationData = participations.map((participation, index) => ({
     name: participation.participant.full_name,
     value: participation.percentage || 0,
-    color: participation.color, 
+    color: participation.color,
   }));
 
   const handleAddMember = useCallback(
@@ -56,11 +64,10 @@ const ProjectPopup = ({ project, onClose }) => {
 
         await api.post('/participations/', newParticipation);
 
-      
-        const updatedProjectResponse = await api.get(`/projects/${project.id}/`);
-        setParticipations(updatedProjectResponse.data.participations || []);
+        // Fetch updated participations
+        await fetchParticipations();
 
-       
+        // Clear the form inputs
         setParticipantId('');
         setPercentage('');
       } catch (error) {
@@ -72,6 +79,54 @@ const ProjectPopup = ({ project, onClose }) => {
     },
     [participantId, percentage, participations, project.id]
   );
+
+  const handleUpdateParticipation = async (participationId, updatedPercentage) => {
+    setIsSubmitting(true);
+
+    const totalPercentage = participations.reduce(
+      (sum, p) =>
+        sum + (p.id === participationId ? 0 : p.percentage || 0),
+      0
+    );
+
+    if (totalPercentage + updatedPercentage > 100) {
+      alert('Total participation percentage cannot exceed 100%');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      await api.patch(`/participations/${participationId}/`, {
+        percentage: updatedPercentage,
+      });
+
+      await fetchParticipations();
+    } catch (error) {
+      console.error('Failed to update participation:', error.response?.data || error);
+      alert('Failed to update member participation');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteParticipation = async (participationId) => {
+    if (!window.confirm('Are you sure you want to remove this member from the project?')) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await api.delete(`/participations/${participationId}/`);
+
+      await fetchParticipations();
+    } catch (error) {
+      console.error('Failed to delete participation:', error.response?.data || error);
+      alert('Failed to remove member');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div
@@ -91,7 +146,11 @@ const ProjectPopup = ({ project, onClose }) => {
         <div className="modalWrapper">
           <div className="topRow">
             <ParticipationGraph participationData={participationData} />
-            <ProjectMembersList participations={participations} />
+            <ProjectMembersList
+              participations={participations}
+              onUpdateParticipation={handleUpdateParticipation}
+              onDeleteParticipation={handleDeleteParticipation}
+            />
           </div>
           <AddMemberForm
             participantsList={participantsList}
@@ -109,9 +168,8 @@ const ProjectPopup = ({ project, onClose }) => {
 };
 
 ProjectPopup.propTypes = {
-    project: ProjectPropType.isRequired,
-    onClose: PropTypes.func.isRequired,
-  };
-  
+  project: ProjectPropType.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default ProjectPopup;
