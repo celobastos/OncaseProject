@@ -1,0 +1,80 @@
+.bottomDiv {
+    
+    padding: 2vh 2vw;
+    border-radius: 1vh;
+    margin-top: 2vh;
+    width: 60%;
+    align-self: center;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .bottomDiv h3 {
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: 2.5vh;
+  }
+  
+  .bottomDiv form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bottomDiv label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+    width: 80%;
+  }
+  
+  .bottomDiv label select,
+  .bottomDiv label input {
+    padding: 1vh 1vw;
+    margin-top: 1vh;
+    border: 0.2vh solid #ccc;
+    border-radius: 0.5vh;
+    font-size: 2vh;
+  }
+  
+  .bottomDiv button {
+    background-color: #6200ea;
+    color: #fff;
+    padding: 1.5vh 3vw;
+    font-size: 1.3vh;
+    border: none;
+    border-radius: 0.5vh;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1.4vh;
+    font-weight: bold;
+  }
+  
+  .bottomDiv button:hover {
+    background-color: #3700b3;
+  }
+  
+  .bottomDiv button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  @media (min-width: 768px) {
+    .bottomDiv form {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .bottomDiv label {
+      margin-right: 2vw;
+      width: auto;
+      flex: 1 1 30%;
+    }
+  
+    .bottomDiv button {
+      flex: 1 1 100%;
+      max-width: 200px;
+    }
+  }
+  

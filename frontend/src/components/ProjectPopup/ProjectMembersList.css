@@ -2,6 +2,10 @@
   list-style-type: none;
   padding: 0;
 }
+.projectMembers{
+  background-color: #ffffff;
+  box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+}
 
 .projectMembers h3 {
   margin-bottom: 2vh; 

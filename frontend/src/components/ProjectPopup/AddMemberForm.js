@@ -1,4 +1,5 @@
 import React from 'react';
+import './AddMemberForm.css';
 
 const AddMemberForm = ({
   participantsList,
@@ -10,16 +11,16 @@ const AddMemberForm = ({
   isSubmitting,
 }) => (
   <div className="bottomDiv">
-    <h3>Add a Member</h3>
+    <h3>Adicione um membro</h3>
     <form onSubmit={handleAddMember}>
       <label>
-        Participant:
+        Membro:
         <select
           value={participantId}
           onChange={(e) => setParticipantId(e.target.value)}
           required
         >
-          <option value="">Select Participant</option>
+          <option value="">Escolha o membro</option>
           {participantsList.map((participant) => (
             <option key={participant.id} value={participant.id}>
               {participant.first_name} {participant.last_name}
@@ -28,7 +29,7 @@ const AddMemberForm = ({
         </select>
       </label>
       <label>
-        Percentage:
+        Participação:
         <input
           type="number"
           value={percentage}
@@ -39,7 +40,7 @@ const AddMemberForm = ({
         />
       </label>
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Adding...' : 'Add Member'}
+        {isSubmitting ? 'Adding...' : 'Adicionar'}
       </button>
     </form>
   </div>

@@ -13,17 +13,12 @@
     margin: 1vh 1vw;
     cursor: pointer;
     text-align: center;
-    border: 0.1vh solid #ccc;
-    border-radius: 0.8vh;
     padding: 1vh;
     transition: box-shadow 0.3s;
     box-sizing: border-box;
     width: 30vw;
 }
 
-.project-chart:hover {
-    box-shadow: 0 0.5vh 0.8vh rgba(0, 0, 0, 0.2);
-}
 
 .project-chart h4 {
     margin-bottom: 1vh;

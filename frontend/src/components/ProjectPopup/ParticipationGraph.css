@@ -6,10 +6,12 @@
     border-radius: 0.5vh;
     margin-right: 1vw;
     width: 28vw;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
   }
   
   .graph-container h3 {
-    margin-bottom: 2.5vh;
+    margin-top: 3vh;
+    margin-bottom: 1vh;
   }
   
   .chart-and-legend {
