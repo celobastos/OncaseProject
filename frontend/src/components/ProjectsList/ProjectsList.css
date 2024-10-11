@@ -66,25 +66,50 @@
 
 @media (max-width: 768px) {
     .projects-list {
-        padding: 5vh 4vw;
+        width: 70%;
+        padding: 4vh 3vw;
+        margin: 4vh auto;
     }
 
     .projects-list h2 {
-        font-size: 3vh;
+        font-size: 2.8vh;
     }
 
     .projects-list li {
-        padding: 3vh 2vw;
+        padding: 2.5vh 1.5vw;
     }
 
     .pagination {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        position: absolute;
         bottom: 2vh;
         right: 2vw;
-        gap: 0.3vw;
     }
-    
+}
+
+@media (max-width: 480px) {
+    .projects-list {
+        width: 90%;
+        padding: 3vh 2vw;
+        margin: 3vh auto;
+        height: auto;
+    }
+
+    .projects-list h2 {
+        font-size: 2.5vh;
+    }
+
+    .projects-list li {
+        padding: 2vh 1vw;
+        font-size: 2vh;
+    }
+
+    .pagination {
+        bottom: 1.5vh;
+        right: 1vw;
+        gap: 0.5vw;
+    }
+
+    .pagination .page-button,
+    .pagination .current-page {
+        font-size: 1.8vh;
+    }
 }
