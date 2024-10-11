@@ -1,10 +1,8 @@
-// ParticipationGraph.js
-
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import './ParticipationGraph.css';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#C0392B'];
+const COLORS = ['#EF476F', '#073B4C', '#118AB2', '#06D6A0', '#FFD166', '#EF476F'];
 
 const ParticipationGraph = ({ participationData, showTitle = true }) => (
   <div className="graph-container">

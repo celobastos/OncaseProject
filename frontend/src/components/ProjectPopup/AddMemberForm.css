@@ -2,7 +2,7 @@
   
   border-radius: 1vh;
   
-  margin-bottom: 2vh;
+  margin-bottom: 1.5vh;
   width: 100%;
   max-width: 60%;
   height: 39%;
@@ -43,7 +43,7 @@
 }
 
 .bottomDiv button {
-  background-color: #6200ea;
+  background-color: #003566;
   color: #fff;
   padding: 1.5vh 3vw;
   font-size: 2vh;
@@ -57,7 +57,7 @@
 }
 
 .bottomDiv button:hover {
-  background-color: #3700b3;
+  background-color: #118AB2;
 }
 
 .bottomDiv button:disabled {

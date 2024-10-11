@@ -2,7 +2,7 @@
     width: 25%;
     padding: 3vh 2vw;
     margin: 5vh 5vh 5vh 8vh;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 1vh;
     box-shadow: 0 0.4vh 0.6vh rgba(0, 0, 0, 0.1);
     position: relative;
@@ -12,7 +12,7 @@
 .projects-list h2 {
     text-align: center;
     font-size: 2.5vh;
-    color: #333;
+    color: #000814;
     margin-bottom: 2vh;
 }
 
@@ -40,7 +40,7 @@
     justify-content: flex-end;
     align-items: center;
     position: absolute;
-    bottom: 1vh;
+    bottom: 0.5vh;
     right: 1vw;
     gap: 0.3vw;
 }
@@ -55,7 +55,7 @@
 }
 
 .pagination .page-button:hover {
-    color: #6200ea;
+    color: #118AB2;
 }
 
 .pagination .current-page {
