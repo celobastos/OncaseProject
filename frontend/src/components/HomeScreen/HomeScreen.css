@@ -1,11 +1,13 @@
 .home-screen {
     padding-top: 60px;
+    background-color: #5e90a0;
 }
 .first-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 20px;
+    
 }
 @media (max-width: 768px) {
     .first-section {

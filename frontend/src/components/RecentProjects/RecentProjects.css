@@ -2,6 +2,7 @@
     padding: 2vh;
     font-size: 3vh;
     text-align: center;
+   
 }
 
 .projects-row {
@@ -24,7 +25,12 @@
 
 .project-chart h4 {
     margin-bottom: 1vh;
+    color: white;
 }
+.recent-projects h3 {
+    color: black;
+}
+
 
 
 .project-chart svg {
